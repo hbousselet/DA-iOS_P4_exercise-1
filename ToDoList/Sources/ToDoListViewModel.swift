@@ -42,11 +42,14 @@ final class ToDoListViewModel: ObservableObject {
 
     /// Apply the filter to update the list.
     func applyFilter(at index: Int) {
-        // TODO: - Implement the logic for filtering
+        //load toDoItems before editiing it
         let oldToDoItems = repository.loadToDoItems()
+        //iterate through filtering logic. Case one, we want to filter only the done todo, case 2 we want to filter only the undo of the todos, then default for all
         switch index {
         case 1:
+            //we apply the filter
             toDoItems = oldToDoItems.filter { $0.isDone == true }
+            // we save the oldToDoItems into document directory using model methods
             repository.saveToDoItems(oldToDoItems)
         case 2:
             toDoItems = oldToDoItems.filter { $0.isDone == false }
