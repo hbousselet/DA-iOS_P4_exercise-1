@@ -15,6 +15,15 @@ struct ToDoListView: View {
                 // Filter selector
                 // TODO: - Add a filter selector which will call the viewModel for updating the displayed data
                 // List of tasks
+                Picker("Filter", selection: $filterIndex) {
+                    Text("All").tag(0)
+                    Text("Done").tag(1)
+                    Text("Not Done").tag(2)
+                }
+                .pickerStyle(.segmented)
+                .onChange(of: filterIndex, perform: {newValue in
+                    viewModel.applyFilter(at: newValue)
+                })
                 List {
                     ForEach(viewModel.toDoItems) { item in
                         HStack {

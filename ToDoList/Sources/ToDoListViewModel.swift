@@ -43,5 +43,16 @@ final class ToDoListViewModel: ObservableObject {
     /// Apply the filter to update the list.
     func applyFilter(at index: Int) {
         // TODO: - Implement the logic for filtering
+        let oldToDoItems = repository.loadToDoItems()
+        switch index {
+        case 1:
+            toDoItems = oldToDoItems.filter { $0.isDone == true }
+            repository.saveToDoItems(oldToDoItems)
+        case 2:
+            toDoItems = oldToDoItems.filter { $0.isDone == false }
+            repository.saveToDoItems(oldToDoItems)
+        default:
+            toDoItems = oldToDoItems
+        }
     }
 }
